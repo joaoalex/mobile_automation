@@ -213,6 +213,9 @@ exports.config = {
         disableLog: true,
         jsonDir: './tmp/json',
         reportPath: './reports',
+        displayDuration: true,
+        //durationInMS: true,
+        displayReportTime: true,
         linkScreenshots: true,
         failedSummaryReport: true
       });
