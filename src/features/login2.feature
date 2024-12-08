@@ -1,4 +1,4 @@
-Feature: Login Functionality
+Feature: Second feature
 
   Scenario: Login with Locked creds
     Given I am on app login Page
