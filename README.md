@@ -36,3 +36,4 @@ Allure reports are generated automatically after running the tests. You can view
 - **wdio.conf.js**: WebdriverIO configuration file.
 - **package.json**: contains dependencies with versions.
 # mobile_automation
+# mobile_automation
