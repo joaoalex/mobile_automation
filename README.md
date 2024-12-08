@@ -33,7 +33,8 @@ http-server
 - **features/**: Contains feature files for Cucumber BDD.
 - **src/page_objects/**: Contains page object classes.
 - **src/steps/**: Contains step definitions.
-- **allure-report/**: Contains test reports.
+- **reports/**: conatins static website to serve reports
+- **tmp/**: contain json files of results
 - **wdio.conf.js**: WebdriverIO configuration file.
 - **package.json**: contains dependencies with versions.
 # mobile_automation
