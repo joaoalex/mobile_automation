@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('node:fs/promises');
 const cucumberJson = require('wdio-cucumberjs-json-reporter');
 
+const allureReporter = require('@wdio/allure-reporter').default
 
 exports.config = {
     //
@@ -13,21 +14,6 @@ exports.config = {
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
 
-    //
-    // ==================
-    // Specify Test Files
-    // ==================
-    // Define which test specs should run. The pattern is relative to the directory
-    // of the configuration file being run.
-    //
-    // The specs are defined as an array of spec files (optionally using wildcards
-    // that will be expanded). The test for each spec file will be run in a separate
-    // worker process. In order to have a group of spec files run in the same worker
-    // process simply enclose them in an array within the specs array.
-    //
-    // The path of the spec files will be resolved relative from the directory of
-    // of the config file unless it's absolute.
-    //
     specs: [
         path.join(process.cwd(), './src/features/*.feature')
 
@@ -36,103 +22,63 @@ exports.config = {
     exclude: [
         // 'path/to/excluded/files'
     ],
-    //
-    // ============
-    // Capabilities
-    // ============
-    // Define your capabilities here. WebdriverIO can run multiple capabilities at the same
-    // time. Depending on the number of capabilities, WebdriverIO launches several test
-    // sessions. Within your capabilities you can overwrite the spec and exclude options in
-    // order to group specific specs to a specific capability.
-    //
-    // First, you can define how many instances should be started at the same time. Let's
-    // say you have 3 different capabilities (Chrome, Firefox, and Safari) and you have
-    // set maxInstances to 1; wdio will spawn 3 processes. Therefore, if you have 10 spec
-    // files and you set maxInstances to 10, all spec files will get tested at the same time
-    // and 30 processes will get spawned. The property handles how many capabilities
-    // from the same test should run tests.
-    //
-    maxInstances: 1, //10,
+   
+    maxInstances: 2, //10,
+    capabilities: [
     
-    //
-    // If you have trouble getting all important capabilities together, check out the
-    // Sauce Labs platform configurator - a great tool to configure your capabilities:
-    // https://saucelabs.com/platform/platform-configurator
-    //
-    capabilities: [{
-        // capabilities for local Appium web tests on an Android Emulator
-        platformName: 'Android',
-        'appium:deviceName': '29b8a08a0c047ece', //'RZCX52JE1QP',
-        //'appium:platformVersion': '12.0',
-        'appium:automationName': 'UiAutomator2',
-       // "appium:platformVersion": "9.0",
-        "appium:app": path.join(process.cwd(), "./app/android/Android-MyDemoAppRN.1.3.0.build-244.apk"),
-        "appium:autoGrantPermissions": true
-    }],
+    {
+      platformName: 'Android',
+     //'appium:deviceName': 'HYF4C18918013372', //'RZCX52JE1QP',
+      'port': 4723,
+      //'appium:platformVersion': '12.0',
+      'appium:automationName': 'UiAutomator2',
+     // "appium:platformVersion": "9.0",
+      "appium:app": path.join(process.cwd(), "./app/android/Android-MyDemoAppRN.1.3.0.build-244.apk"),
+      "appium:autoGrantPermissions": true
+    },
+    {
+      // capabilities for local Appium web tests on an Android Emulator
+      platformName: 'Android',
+      //'appium:deviceName': 'RZCX52JE1QP', //'RZCX52JE1QP',
+      'port': 4725,
+      //'appium:platformVersion': '12.0',
+      'appium:automationName': 'UiAutomator2',
+     // "appium:platformVersion": "9.0",
+      "appium:app": path.join(process.cwd(), "./app/android/Android-MyDemoAppRN.1.3.0.build-244.apk"),
+      "appium:autoGrantPermissions": true
+    }
+],
 
-    //
-    // ===================
-    // Test Configurations
-    // ===================
-    // Define all options that are relevant for the WebdriverIO instance here
-    //
-    // Level of logging verbosity: trace | debug | info | warn | error | silent
     logLevel: 'info',
-    //
-    // Set specific log levels per logger
-    // loggers:
-    // - webdriver, webdriverio
-    // - @wdio/browserstack-service, @wdio/devtools-service, @wdio/sauce-service
-    // - @wdio/mocha-framework, @wdio/jasmine-framework
-    // - @wdio/local-runner
-    // - @wdio/sumologic-reporter
-    // - @wdio/cli, @wdio/config, @wdio/utils
-    // Level of logging verbosity: trace | debug | info | warn | error | silent
-    // logLevels: {
-    //     webdriver: 'info',
-    //     '@wdio/appium-service': 'info'
-    // },
-    //
-    // If you only want to run your tests until a specific amount of tests have failed use
-    // bail (default is 0 - don't bail, run all tests).
     bail: 0,
-    //
-    // Set a base URL in order to shorten url command calls. If your `url` parameter starts
-    // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
-    // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
-    // gets prepended directly.
-    // baseUrl: 'http://localhost:8080',
-    //
-    // Default timeout for all waitFor* commands.
-    waitforTimeout: 10000,
-    //
-    // Default timeout in milliseconds for request
-    // if browser driver or grid doesn't send response
+    waitforTimeout: 30000,
     connectionRetryTimeout: 120000,
-    //
-    // Default request retries count
     connectionRetryCount: 3,
-    //
-    // Test runner services
-    // Services take over a specific job you don't want to take care of. They enhance
-    // your test setup with almost no effort. Unlike plugins, they don't add new
-    // commands. Instead, they hook themselves up into the test process.
-    services: [['appium', {
-  args: {
-    address: '127.0.0.1',
-    port: 4723,
-    relaxedSecurity: true
-  },
-  logPath: './'
-}]],
+    services: [
+        ['appium', {
+          args: {
+            address: '127.0.0.1',
+            port: 4723,
+            relaxedSecurity: true,
+            defaultCapabilities: {'appium:udid': 'HYF4C18918013372','appium:command-timeout': '10000'} 
+          },
+          logPath: './',
+          log: './wdio-appium1.log'
+        }],
+        ['appium', {
+          args: {
+            address: '127.0.0.1',
+            port: 4725,
+            relaxedSecurity: true,
+            defaultCapabilities: {'appium:udid': 'RZCX52JE1QP','appium:command-timeout': '10000'}  
+          },
+          logPath: './',
+           log: './wdio-appium2.log'
+        }]
+    ],
     
 
-    // Framework you want to run your specs with.
-    // The following are supported: Mocha, Jasmine, and Cucumber
-    // see also: https://webdriver.io/docs/frameworks
-    //
-    // Make sure you have the wdio adapter package for the specific framework installed
-    // before running any tests.
+
     framework: 'cucumber',
     
     //
@@ -149,20 +95,20 @@ exports.config = {
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
     
-    /*reporters: ['spec',['allure', {
+    reporters: ['spec',['allure', {
         outputDir: 'allure-results',
         disableWebdriverStepsReporting:true,
-        disableWebdriverScreenshotsReporting:true,
+        disableWebdriverScreenshotsReporting:false,
         useCucumberStepReporter:true,
-        addConsoleLogs:true,
-    }]],*/
+        addConsoleLogs:false,
+    }]],
     
-    reporters: ['spec',
+    /*reporters: ['spec',
             ['cucumberjs-json', {
                 jsonFolder: 'tmp/json/',
                 language: 'en',
             },
-        ]],
+        ]],*/
         
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
@@ -202,7 +148,7 @@ exports.config = {
     onComplete: async () => {
     // Generate the report when it all tests are done
       
-      const htmlReporter = require('multiple-cucumber-html-reporter');
+      /*const htmlReporter = require('multiple-cucumber-html-reporter');
       
       await htmlReporter.generate({
         theme: 'bootstrap',
@@ -218,23 +164,27 @@ exports.config = {
         displayReportTime: true,
         linkScreenshots: true,
         failedSummaryReport: true
-      });
+      });*/
       
   },
-  afterStep: async function(step) {
-    console.log('------------ Step  ----------------: ' +  step.text);
+ 
 
-    
+  afterStep: async function(step) {
+    console.log('End Step: ' +  step.text);
+
     // Attach a screenshot in a before hook 
-    //console.log('before takescreenshot');
-    cucumberJson.attach(await browser.takeScreenshot(), 'image/png'); 
+    await browser.takeScreenshot();
+    
+    //cucumberJson.attach(await browser.takeScreenshot(), 'image/png'); 
+      
+
     //console.log('after takescreenshot');
     //await browser.takeScreenshot();
-    console.log('\n\tScreenshot saved', '\n');
+    
   },
 
   afterTest: function(test) {
-    console.log('------------ REPORT  ----------------', test);
+    console.log('End Test: ', test);
   },
   
 

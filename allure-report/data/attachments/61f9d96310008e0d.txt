@@ -1,0 +1,6 @@
+.........Console Logs.........
+
+------------ Step  ----------------: I see locked error message
+
+	Screenshot saved 
+

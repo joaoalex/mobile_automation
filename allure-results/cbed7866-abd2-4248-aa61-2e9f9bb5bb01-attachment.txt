@@ -1,0 +1,4 @@
+.........Console Logs.........
+
+------------ Step  ----------------: I login with "alice@example.com" and "10203040"
+------------ Step  ----------------
