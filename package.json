@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "androidold": "npx wdio wdio.conf.js && allure generate allure-results --clean",
-    "android": "npx wdio wdio.conf.js && mv ./tmp/json/*.json ./tmp/json/cucumber_report.json",
+    "android": "npx wdio wdio.conf.js",
     "generate": "allure generate allure-results --clean && allure open",
     "wdio": "wdio run ./wdio.conf.js"
   },
