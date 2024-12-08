@@ -18,21 +18,23 @@ This project automates the testing of the login functionality of a mobile applic
 
 ## Running the Tests
 
-1. Start emulator in Android studio
-2. Place the apk file in the app/android folder
-3. Set capabilities in wdio.conf.js file as per your emulator
-4. Run the tests: npm run android
+1. Place the apk file in the app/android folder
+2. Set capabilities in wdio.conf.js
+3. Run the tests: npm run android
 
-## Generating Reports
+## Generating Reports with multiple cucumber-http-report add-on
+cd reports
+#serving static files with http-server  
+http-server 
 
-Allure reports are generated automatically after running the tests. You can view them by navigating to the `reports/allure-results` directory or by allure open in cmd
 
 ## Project Structure
 
 - **features/**: Contains feature files for Cucumber BDD.
 - **src/page_objects/**: Contains page object classes.
 - **src/steps/**: Contains step definitions.
-- **allure-report/**: Contains test reports.
+- **reports/**: conatins static website to serve reports
+- **tmp/**: contain json files of results
 - **wdio.conf.js**: WebdriverIO configuration file.
 - **package.json**: contains dependencies with versions.
 # mobile_automation
