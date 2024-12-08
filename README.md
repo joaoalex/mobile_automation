@@ -5,15 +5,13 @@ This project automates the testing of the login functionality of a mobile applic
 ## Prerequisites
 
 - Node.js
-- Set environment variables for Java, SDK and allure
-- Appium inspecter
-- Appium server GUI
 - Android studio - SDK setup, emulator setup
-- Visual studio code
+- Set environment variables for Java, SDK
+- Appium 
 
 ## Installation
 
-1. Install dependencies using `npm install`. verify all dependencies are available in node_modules folder
+1. Install dependencies using `npm install`
 2. Set up the Android emulator or connect a real device.
 
 ## Running the Tests
@@ -37,5 +35,5 @@ http-server
 - **tmp/**: Contains json files of results
 - **wdio.conf.js**: WebdriverIO configuration file.
 - **package.json**: contains dependencies with versions.
-# mobile_automation
-# mobile_automation
+
+
